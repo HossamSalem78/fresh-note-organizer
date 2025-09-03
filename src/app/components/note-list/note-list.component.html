@@ -1,0 +1,104 @@
+<main>
+  <div class="notes-container">
+    <div class="notes-header">
+      <h2 class="notes-title">My Notes</h2>
+      <div class="search-container">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          placeholder="Search notes..."
+          class="search-input"/>
+        <i class="fa-solid fa-search search-icon"></i>
+      </div>
+      <a routerLink="/notes/note-form" class="btn btn-primary">Create New Note</a>
+    </div>
+    <div class="filter">
+      <div class="filter-container">
+        <p class="filter-title">Filter by</p>
+        <div class="filter-options">
+          <div class="filter-option">
+            <select class="filter-select">
+              <option value="">Select a category</option>
+              @for (category of categories; track category.id) {
+                <option value="{{category.id}}">{{category.name}}</option>
+              }
+            </select>
+          </div>
+          <div class="filter-option">
+            <select class="filter-select">
+              <option value="">Select a folder</option>
+              @for (folder of folders; track folder.id) {
+                <option value="{{folder.id}}">{{folder.name}}</option>
+              }
+            </select>
+          </div>
+          <div class="filter-option">
+            <select class="filter-select">
+              <option value="">Select a category</option>
+              @for (team of teams; track team.id) {
+                <option value="{{team.id}}">{{team.name}}</option>
+              }
+            </select>
+          </div>
+          <div class="filter-option">
+            <p>Tags</p>
+            @for (tag of tags; track tag.id) {
+              <label class="tag-checkbox">
+                <input 
+                  type="checkbox" 
+                  [value]="tag.id">
+                <span class="tag-label">{{ tag.name }}</span>
+              </label>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="sort-container">
+        <p>Sort by</p>
+        <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange($event)">
+          <option value="title">Title</option>
+          <option value="folder">Folder</option>
+          <option value="category">Category</option>
+          <option value="team">Team</option>
+        </select>
+      </div>
+    </div>
+    @if (notes.length > 0) {
+      <div class="notes-list">
+        @for (note of notes; track note.id) {
+          <div class="note-card">
+            <div class="note-header">
+              <span class="note-folder">
+                <i class="fa-solid fa-folder"></i>
+                {{getFolderName(note.folderId)}}
+              </span>
+              <div class="note-actions">
+                <i class="fa-solid fa-edit btn btn-icon-primary" routerLink="/notes/note-form/{{note.id}}"></i>
+                <i class="fa-solid fa-trash btn btn-icon-danger" (click)="deleteNote(note.id)"></i>
+              </div>
+            </div>
+            <div class="note-title-container">
+              <h3 class="note-title">{{ note.title }}</h3>
+              <span class="note-category">{{getCategoryName(note.categoryId)}}</span>
+            </div>
+            <p class="note-content">{{ note.content }}</p>
+            <p class="note-team">{{getTeamName(note.teamId)}}</p>
+            <div class="note-tags">
+              @for (tagId of note.tags; track tagId) {
+                <span class="note-tag">{{ getTagName(tagId) }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <div class="empty-state-icon">📝</div>
+        <h3 class="empty-state-title">No notes yet</h3>
+        <p class="empty-state-message">Create your first note using the form above!</p>
+      </div>
+    }
+  </div>
+  
+
+</main>

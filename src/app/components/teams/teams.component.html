@@ -1,0 +1,11 @@
+<div class="teams-container">
+    <h2 class="teams-title">Teams</h2>
+    <div class="teams-list">
+      @for (team of teams; track team.id) {
+        <div class="team-card">
+          <h3 class="team-name">{{ team.name }}</h3>
+          <p class="team-members">{{ team.members.length }} members</p>
+        </div>
+      }
+    </div>
+  </div>

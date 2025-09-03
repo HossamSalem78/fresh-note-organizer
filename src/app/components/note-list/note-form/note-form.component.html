@@ -1,0 +1,97 @@
+<main>
+  <div class="form-container">
+  
+    <h3 class="form-title">
+      <i class="fa-solid fa-arrow-left" (click)="goBack()"></i>
+      {{ isEditing ? 'Editing Note: ' + newNote.title : 'Create New Note' }}
+    </h3>
+    <form (ngSubmit)="onSubmit()" #noteForm="ngForm">
+      <div class="form-group">
+        <label for="title" class="form-label">Title</label>
+        <input 
+          type="text" 
+          id="title" 
+          name="title" 
+          [(ngModel)]="newNote.title" 
+          required
+          class="form-input"
+          placeholder="Enter note title">
+      </div>
+      
+      <div class="form-group">
+        <label for="content" class="form-label">Content</label>
+        <textarea 
+          id="content" 
+          name="content" 
+          [(ngModel)]="newNote.content" 
+          required
+          class="form-textarea"
+          placeholder="Enter note content"></textarea>
+      </div>
+      <div class="form-section">
+      </div>
+      <div class="form-section">
+        
+        <div class="form-group">
+          <label for="category" class="form-label">Category</label>
+          <select 
+            id="category" 
+            name="category" 
+            [(ngModel)]="newNote.categoryId" 
+            class="form-input">
+            <option value="">Select a category</option>
+            @for (category of categories; track category.id) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
+          </select>
+        </div>
+    
+        <div class="form-group">
+          <label for="team" class="form-label">Team</label>
+          <select 
+            id="team" 
+            name="team" 
+            [(ngModel)]="newNote.teamId" 
+            class="form-input">
+            <option value="">Select a team</option>
+            @for (team of teams; track team.id) {
+              <option [value]="team.id">{{ team.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="folder" class="form-label">Folder</label>
+          <select 
+            id="folder" 
+            name="folder" 
+            [(ngModel)]="newNote.folderId" 
+            class="form-input">
+            <option value="">Select a folder</option>
+            @for (folder of folders; track folder.id) {
+              <option [value]="folder.id">{{ folder.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tags</label>
+        <div class="tags-checkboxes">
+          @for (tag of availableTags; track tag.id) {
+            <label class="tag-checkbox">
+              <input 
+                type="checkbox" 
+                [value]="tag.id"
+                [checked]="newNote.tags?.includes(tag.id)"
+                (change)="onTagToggle(tag.id, $event)">
+              <span class="tag-label">{{ tag.name }}</span>
+            </label>
+          }
+        </div>
+    </div>
+      
+    <button type="submit" class="btn btn-primary">
+      {{ isEditing ? 'Update Note' : 'Create Note' }}
+    </button>
+    </form>
+  </div>
+</main>
