@@ -86,8 +86,19 @@ main{
     position: absolute;
     left: 0.75rem;
     color: #6c757d;
-    font-size: 1rem;
     pointer-events: none;
+  }
+
+  .search-clear{
+    position: absolute;
+    right: 0.75rem;
+    color: #a6acb1;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .search-clear:hover{
+    color: #6c757d;
   }
 
   .filter{
@@ -190,6 +201,19 @@ main{
   .tag-checkbox span {
     pointer-events: none;
     user-select: none;
+  }
+
+  .clear-filters{
+    cursor: pointer;
+    color: #dc2626;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .clear-filters:hover{
+    background-color: #dc2626;
+    color: #fff;
   }
   
   .notes-title {

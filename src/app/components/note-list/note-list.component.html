@@ -9,6 +9,7 @@
           placeholder="Search notes..."
           class="search-input"/>
         <i class="fa-solid fa-search search-icon"></i>
+        <i class="fa-solid fa-circle-xmark search-clear" (click)="clearSearch()"></i>
       </div>
       <a routerLink="/notes/note-form" class="btn btn-primary">Create New Note</a>
     </div>
@@ -17,7 +18,7 @@
         <p class="filter-title">Filter by</p>
         <div class="filter-options">
           <div class="filter-option">
-            <select class="filter-select">
+            <select class="filter-select" [(ngModel)]="selectedCategory" (change)="onCategoryChange($event)">
               <option value="">Select a category</option>
               @for (category of categories; track category.id) {
                 <option value="{{category.id}}">{{category.name}}</option>
@@ -25,7 +26,7 @@
             </select>
           </div>
           <div class="filter-option">
-            <select class="filter-select">
+            <select class="filter-select" [(ngModel)]="selectedFolder" (change)="onFolderChange($event)">
               <option value="">Select a folder</option>
               @for (folder of folders; track folder.id) {
                 <option value="{{folder.id}}">{{folder.name}}</option>
@@ -33,8 +34,8 @@
             </select>
           </div>
           <div class="filter-option">
-            <select class="filter-select">
-              <option value="">Select a category</option>
+            <select class="filter-select" [(ngModel)]="selectedTeam" (change)="onTeamChange($event)">
+              <option value="">Select a team</option>
               @for (team of teams; track team.id) {
                 <option value="{{team.id}}">{{team.name}}</option>
               }
@@ -46,12 +47,15 @@
               <label class="tag-checkbox">
                 <input 
                   type="checkbox" 
-                  [value]="tag.id">
+                  [value]="tag.id"
+                  [checked]="selectedTags.includes(tag.id)"
+                  (change)="onTagChange(tag.id, $event)">
                 <span class="tag-label">{{ tag.name }}</span>
               </label>
             }
           </div>
         </div>
+        <span class="clear-filters" (click)="clearFilters()">Clear Filters</span>
       </div>
       <div class="sort-container">
         <p>Sort by</p>
