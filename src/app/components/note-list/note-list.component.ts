@@ -21,19 +21,36 @@ export class NoteListComponent {
 
   searchTerm = '';
   sortBy='title';
+  selectedCategory='';
+  selectedFolder='';
+  selectedTeam='';
+  selectedTags: string[] = [];
 
   get notes() {
     const allNotes = this.noteService.getNotes();
-    
-    if (!this.searchTerm.trim()) {
-      return this.sortNotes(allNotes);
+
+    let filteredNotes = allNotes;
+    if (this.selectedCategory){
+      filteredNotes=allNotes.filter(note => note.categoryId === this.selectedCategory);
     }
+    if (this.selectedFolder){
+      filteredNotes=filteredNotes.filter(note => note.folderId === this.selectedFolder);
+    }
+    if (this.selectedTeam){
+      filteredNotes=filteredNotes.filter(note => note.teamId === this.selectedTeam);
+    }
+    if (this.selectedTags.length > 0){
+      filteredNotes=filteredNotes.filter(note => note.tags?.some(tag => this.selectedTags.includes(tag)));
+    }
+    if (this.searchTerm.trim()) {
+      const searchLower = this.searchTerm.trim().toLowerCase();
+      filteredNotes=filteredNotes.filter(note =>
+        note.title.toLowerCase().includes(searchLower) ||
+        note.content.toLowerCase().includes(searchLower)
+      );
+    }
+    return this.sortNotes(filteredNotes);
     
-    const searchLower = this.searchTerm.trim().toLowerCase();
-    return allNotes.filter(note =>
-      note.title.toLowerCase().includes(searchLower) ||
-      note.content.toLowerCase().includes(searchLower)
-    );
   }
 
   private sortNotes(notes: NoteInterface[]):NoteInterface[]{
@@ -59,9 +76,44 @@ export class NoteListComponent {
     })
   }
 
+  clearFilters(){
+    this.selectedCategory = '';
+    this.selectedFolder = '';
+    this.selectedTeam = '';
+    this.selectedTags = [];
+  }
+
+  clearSearch(){
+    this.searchTerm = '';
+  }
+
   onSortChange(event:Event){
     const target = event.target as HTMLSelectElement;
     this.sortBy = target.value;
+  }
+
+  onCategoryChange(event:Event){
+    const target = event.target as HTMLSelectElement;
+    this.selectedCategory = target.value;
+  }
+
+  onFolderChange(event:Event){
+    const target = event.target as HTMLSelectElement;
+    this.selectedFolder = target.value;
+  }
+
+  onTeamChange(event:Event){
+    const target = event.target as HTMLSelectElement;
+    this.selectedTeam = target.value;
+  }
+
+  onTagChange(tagId:string, event:Event){
+    const target = event.target as HTMLInputElement;
+    if(target.checked){
+      this.selectedTags.push(tagId);
+    }else{
+      this.selectedTags = this.selectedTags.filter(id => id !== tagId);
+    }
   }
 
   get categories() {
