@@ -1,5 +1,12 @@
 main{
   display: flex;
+  padding: 24px;
+}
+
+aside{
+  width: 250px;
+  border-radius: 16px;
+  box-shadow:0 0 10px 0 rgb(109 103 202 / 20%);
 }
 
 .btn{
@@ -45,6 +52,7 @@ main{
 .notes-container {
     /* max-width: 1200px; */
     flex: 1;
+    padding: 8px 48px;
   }
 
   .notes-header{
@@ -265,6 +273,11 @@ main{
     border-radius: 200px;
   }
 
+  .note-category-na{
+    color: #2f2a7d;
+    font-size: 12px;
+  }
+
   .note-title-container{
     display: flex;
     gap: 8px;
@@ -292,6 +305,11 @@ main{
     color: #6d67ca;
     font-weight: 500;
   }
+
+  .note-team-na{
+    font-size: 14px;
+    color: #6d67ca;
+  }
   
   .note-tags {
     margin-top: 16px;
@@ -309,6 +327,11 @@ main{
     color: #0369a1;
     padding: 2px 8px;
     border-radius: 200px;
+  }
+
+  .note-tags-na{
+    color: #0369a1;
+    font-size: 12px;
   }
   
   .empty-state {

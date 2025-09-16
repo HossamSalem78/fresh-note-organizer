@@ -2,16 +2,18 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { NoteInterface } from '../models/note.interface';
+import { TeamService } from './team.service';
+import { FolderInterface } from '../models/folder.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class NoteService {
-  
+
   private notes = signal<NoteInterface[]>([]);
   private categories = signal<any[]>([]);
-  private teams = signal<any[]>([]);
+  private teams = inject(TeamService);
   private folders = signal<any[]>([]);
   private tags = signal<any[]>([]);
   private http = inject(HttpClient);
@@ -27,7 +29,7 @@ export class NoteService {
         this.notes.set(data.notes || []);
         this.categories.set(data.categories || []);
         this.tags.set(data.tags || []);
-        this.teams.set(data.teams || []);
+        this.teams.getTeams();
         this.folders.set(data.folders || []);
       },
       error: (error) => {
@@ -45,7 +47,7 @@ export class NoteService {
   }
 
   getTeams() {
-    return this.teams();
+    return this.teams.getTeams();
   }
 
   getFolders() {
@@ -86,6 +88,17 @@ export class NoteService {
       },
       error:(error) => {
         console.error('Error deleting note via API:', error);
+      }
+    })
+  }
+
+  addFolder(folder:Omit<FolderInterface,'id'>){
+    this.http.post<any>(`${this.apiUrl}/folders`, folder).subscribe({
+      next:(response) => {
+        this.folders.update(folders => [...folders, response.folder]);
+      },
+      error:(error) => {
+        console.error('Error adding folder via API:', error);
       }
     })
   }

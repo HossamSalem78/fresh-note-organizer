@@ -1,6 +1,11 @@
+main{
+  padding: 24px;
+}
+
 .form-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 8px 48px;
   }
   
   .form-title {
@@ -33,6 +38,17 @@
     margin-bottom: 1.5rem;
     width: 100%;
   }
+
+  .error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  .form-input.ng-invalid.ng-touched,
+  .form-textarea.ng-invalid.ng-touched {
+    border-color: #dc3545;
+  }
   
   .form-label {
     display: block;
@@ -40,6 +56,10 @@
     color: #666;
     margin-bottom: 0.5rem;
     font-size: 14px;
+  }
+
+  .form-label .required{
+    color: #dc2626;
   }
   
   .form-input {
@@ -83,6 +103,11 @@
     text-decoration: none;
     border: none;
     transition: all 0.4s ease;
+  }
+
+  .btn:disabled{
+    opacity: 0.3;
+    cursor: not-allowed;
   }
   
   .btn-primary{

@@ -1,0 +1,155 @@
+main{
+    padding: 24px;
+  }
+
+  .btn{
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: all 0.4s ease;
+  }
+
+  .btn:disabled{
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
+  .btn-primary{
+    font-size: 16px;
+    background-color: #6d67ca;
+    color: #fff;
+  }
+  
+  .btn-primary:hover{
+    background-color: #524dd0;
+  }
+  
+  .form-button:active {
+    background: #6d67ca;
+  }
+  
+  .form-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 48px;
+    }
+    
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+  
+    .form-title i {
+      cursor: pointer;
+      padding: 0.5rem;
+      /* background-color: #6d67ca; */
+      display: inline;
+      border-radius: 4px;
+      transition: all 0.4s ease-in-out;
+    }
+  
+    .form-title i:hover {
+      background-color: #dfdefe;
+      color: #524dd0;
+    }
+  
+    .form-section {
+      width: 100%;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+        width: 100%;
+      }
+    
+      .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+      
+      .form-input.ng-invalid.ng-touched,
+      .form-textarea.ng-invalid.ng-touched {
+        border-color: #dc3545;
+      }
+      
+      .form-label {
+        display: block;
+        font-weight: 500;
+        color: #666;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+    
+      .form-label .required{
+        color: #dc2626;
+      }
+      
+      .form-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+        box-sizing: border-box;
+      }
+      
+      .form-input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+
+      .members-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+      
+      /* Individual tag checkbox */
+      .member-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 4px 8px;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 200px; /* This makes it pill-shaped */
+        cursor: pointer;
+        transition: all 0.4s ease-in-out;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      
+      /* Tag checkbox hover state */
+      .member-checkbox:hover {
+        background: #e9ecef;
+      }
+      
+      /* Tag checkbox when checked */
+      .member-checkbox input[type="checkbox"]:checked + span,
+      .member-checkbox:has(input[type="checkbox"]:checked) {
+        
+      
+        background: #e0f2fe;
+          color: #0369a1;
+          border-color: #0369a1;
+      }
+      
+      /* Hide the default checkbox */
+      .member-checkbox input[type="checkbox"] {
+        display: none;
+      }
+      
+      /* Tag text styling */
+      .member-checkbox span {
+        pointer-events: none;
+        user-select: none;
+      }

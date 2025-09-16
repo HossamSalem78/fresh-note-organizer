@@ -14,6 +14,6 @@ export const routes: Routes = [
     },
     {
         path: 'teams',
-        component: TeamsComponent
+        loadChildren: () => import('./components/teams/teams.routes').then(m => m.noteRoutes)
     },
 ];

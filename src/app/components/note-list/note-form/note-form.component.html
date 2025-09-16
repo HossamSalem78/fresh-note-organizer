@@ -7,7 +7,10 @@
     </h3>
     <form (ngSubmit)="onSubmit()" #noteForm="ngForm">
       <div class="form-group">
-        <label for="title" class="form-label">Title</label>
+        <label for="title" class="form-label">
+          Title
+          <span class="required">*</span>
+        </label>
         <input 
           type="text" 
           id="title" 
@@ -15,18 +18,33 @@
           [(ngModel)]="newNote.title" 
           required
           class="form-input"
+          #titleInput="ngModel"
           placeholder="Enter note title">
+          @if(titleInput.invalid && titleInput.touched){
+            <div class="error-message">
+              Title is required
+            </div>
+          }
       </div>
       
       <div class="form-group">
-        <label for="content" class="form-label">Content</label>
+        <label for="content" class="form-label">
+          Content
+          <span class="required">*</span>
+        </label>
         <textarea 
           id="content" 
           name="content" 
           [(ngModel)]="newNote.content" 
           required
           class="form-textarea"
+          #contentInput="ngModel"
           placeholder="Enter note content"></textarea>
+          @if(contentInput.invalid && contentInput.touched){
+            <div class="error-message">
+              Content is required
+            </div>
+          }
       </div>
       <div class="form-section">
       </div>
@@ -89,7 +107,7 @@
         </div>
     </div>
       
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" [disabled]="noteForm.invalid">
       {{ isEditing ? 'Update Note' : 'Create Note' }}
     </button>
     </form>

@@ -1,0 +1,30 @@
+<div class="folder-form">
+    <div class="form-group">
+      <input 
+        type="text" 
+        id="folderName"
+        [(ngModel)]="folderName" 
+        class="form-input"
+        placeholder="Enter folder name"
+        (keyup.enter)="onCreate()"
+        (keyup.escape)="onCancel()"
+      >
+    </div>
+    <div class="form-actions">
+      <button 
+        type="button" 
+        class="btn btn-primary" 
+        (click)="onCreate()"
+        [disabled]="!folderName.trim()"
+      >
+        Create Folder
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-danger" 
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>

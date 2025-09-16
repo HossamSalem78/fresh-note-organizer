@@ -13,7 +13,6 @@ html, body {
 }
 
 main{
-    padding: 64px;
     height: calc(100vh - 87px);
     overflow-y: auto;
 }
