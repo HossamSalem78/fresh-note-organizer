@@ -1,11 +1,35 @@
-<div class="teams-container">
-    <h2 class="teams-title">Teams</h2>
-    <div class="teams-list">
-      @for (team of teams; track team.id) {
-        <div class="team-card">
-          <h3 class="team-name">{{ team.name }}</h3>
-          <p class="team-members">{{ team.members.length }} members</p>
-        </div>
-      }
+<main>
+
+  <div class="teams-container">
+    <div class="teams-header">
+      <h2 class="teams-title">Teams</h2>
+      <a routerLink="/teams/team-form" class="btn btn-primary">Create New Team</a>
     </div>
-  </div>
+      <div class="teams-list">
+        @if (teams.length > 0) {
+          @for (team of teams; track team.id) {
+            <div class="team-card">
+              <div class="team-header">
+                <h3 class="team-name">{{ team.name }}</h3>
+                <div class="team-actions">
+                  <i class="fa-solid fa-edit btn btn-icon-primary" routerLink="/teams/team-form/{{team.id}}"></i>
+                  <i class="fa-solid fa-trash btn btn-icon-danger" (click)="deleteTeam(team.id)"></i>
+                </div>
+              </div>
+              <div class="team-members">
+                @for (memberId of team.members; track memberId) {
+                  <span class="team-member">{{ getMemberName(memberId) }}</span>
+                }
+              </div>
+            </div>
+          }
+        } @else {
+          <div class="empty-state">
+            <div class="empty-state-icon">📝</div>
+            <h3 class="empty-state-title">No teams yet</h3>
+            <p class="empty-state-message">Create your first team using the form above!</p>
+          </div>
+        }
+      </div>
+    </div>
+</main>

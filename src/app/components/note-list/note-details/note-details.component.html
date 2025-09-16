@@ -1,0 +1,48 @@
+<main>
+  <div class="note-details-container">
+    <div class="note-details-header">
+      <h3>
+        <i class="fa-solid fa-arrow-left" (click)="goBack()"></i>
+        {{ note?.title }}
+      </h3>
+      <div class="note-actions">
+        <i class="fa-solid fa-edit btn btn-icon-primary" routerLink="/notes/note-form/{{note?.id}}"></i>
+        <i class="fa-solid fa-trash btn btn-icon-danger" (click)="deleteNote()"></i>
+      </div>
+    </div>
+
+    <div class="note-details-content">
+      <div class="note-content">
+        <div class="note-item">
+          <p>{{ note?.content }}</p>
+        </div>
+      </div>
+      <div class="note-content">
+        <div class="note-item">
+          <p class="note-item-title">Folder</p>
+          <span>{{ getFolderName(note?.folderId) }}</span>
+        </div>
+        <div class="note-item">
+          <p class="note-item-title">Category</p>
+          <span>{{ getCategoryName(note?.categoryId) }}</span>
+        </div>
+        <div class="note-item">
+          <p class="note-item-title">Team</p>
+          <span>{{ getTeamName(note?.teamId) }}</span>
+        </div>
+      </div>
+      <div class="note-content">
+        <div class="note-item">
+          <p class="note-item-title">Tags</p>
+          <div class="note-tags">
+            @for (tagId of note?.tags; track tagId) {
+              <span class="note-tag">{{ getTagName(tagId) }}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</main>

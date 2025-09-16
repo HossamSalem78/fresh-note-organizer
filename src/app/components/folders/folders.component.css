@@ -1,0 +1,62 @@
+.folders-container{
+    /* background-color: red; */
+    padding: 16px;
+    height: 100%;
+}
+
+.folders-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.create-folder{
+    cursor: pointer;
+    color: #6d67ca;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .create-folder:hover{
+    background-color: #f0efff;
+    color: #524dd0;
+  }
+
+  .folders{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .folders .folder-item{
+    list-style: none;
+    padding: 8px;
+    border-radius: 4px;
+    color: #6d67ca;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .folders .folder-item i{
+    color: #6d67ca;
+    font-size: 12px;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .folders .folder-item:hover{
+    background-color: #f0efff;
+  }
+
+  .folders .folder-item.selected{
+    background-color: #6d67ca;
+    color: #fff;
+  }
+
+  .folders .folder-item.selected i{
+    color: #fff;
+  }

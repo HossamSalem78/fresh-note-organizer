@@ -5,12 +5,13 @@ import { Router, RouterLink } from '@angular/router';
 
 import { NoteService } from '../../services/note.service';
 import { NoteInterface } from '../../models/note.interface';
+import { FoldersComponent } from "../folders/folders.component";
 
 
 @Component({
   selector: 'app-note-list',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink, FoldersComponent],
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.css'
 })
@@ -78,7 +79,7 @@ export class NoteListComponent {
 
   clearFilters(){
     this.selectedCategory = '';
-    this.selectedFolder = '';
+    // this.selectedFolder = '';
     this.selectedTeam = '';
     this.selectedTags = [];
   }
@@ -97,9 +98,8 @@ export class NoteListComponent {
     this.selectedCategory = target.value;
   }
 
-  onFolderChange(event:Event){
-    const target = event.target as HTMLSelectElement;
-    this.selectedFolder = target.value;
+  onFolderSelected(folderId: string) {
+    this.selectedFolder = folderId;
   }
 
   onTeamChange(event:Event){

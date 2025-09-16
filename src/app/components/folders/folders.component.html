@@ -1,0 +1,41 @@
+<div class="folders-container">
+    <div class="folders-header">
+        <h3>Folders</h3>
+        <span class="create-folder" (click)="createNewFolder()">Create Folder</span>
+    </div>
+    <ul class="folders">
+        <li 
+            class="folder-item" 
+            [class.selected]="selectedFolder === ''"
+            (click)="onFolderClick('')">
+            <i class="fa-solid fa-folder"></i>
+            All Folders
+        </li>
+        @for (folder of folders; track folder.id) {
+            <li 
+                class="folder-item" 
+                [class.selected]="selectedFolder === folder.id"
+                (click)="onFolderClick(folder.id)">
+                <i class="fa-solid fa-folder"></i>
+                {{folder.name}}
+            </li>
+        }
+    </ul>
+    <!-- <div class="filter-option">
+        <select class="filter-select" >
+          <option value="">Select a folder</option>
+          @for (folder of folders; track folder.id) {
+            <option value="{{folder.id}}">{{folder.name}}</option>
+          }
+        </select>
+      </div> -->
+
+</div>
+<app-modal
+[isOpen]="showFolderForm"
+title="Create New Folder"
+(close)="onFolderFormClose()">
+<app-folder-form
+(createFolder)="onFolderCreate($event)"
+(cancel)="onFolderFormClose()"/>
+</app-modal>
