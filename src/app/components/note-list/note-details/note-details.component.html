@@ -6,7 +6,7 @@
         {{ note?.title }}
       </h3>
       <div class="note-actions">
-        <i class="fa-solid fa-edit btn btn-icon-primary" routerLink="/notes/note-form/{{note?.id}}"></i>
+        <i class="fa-solid fa-edit btn btn-icon-primary" (click)="editNote()"></i>
         <i class="fa-solid fa-trash btn btn-icon-danger" (click)="deleteNote()"></i>
       </div>
     </div>

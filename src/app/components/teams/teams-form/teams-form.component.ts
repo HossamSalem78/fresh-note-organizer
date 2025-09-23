@@ -19,6 +19,16 @@ export class TeamsFormComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
+  ngOnInit(){
+    this.route.params.subscribe(params => {
+      if(params['id']){
+        this.teamId = params['id'];
+        this.isEditing = true;
+        this.loadTeamForEditing();
+      }
+    })
+  }
+
   goBack() {
     this.router.navigate(['/teams']);
   }
@@ -32,28 +42,16 @@ export class TeamsFormComponent {
   isEditing = false;
   teamId: string | null = null;
 
-  ngOnInit(){
-    this.route.params.subscribe(params => {
-      if(params['id']){
-        this.teamId = params['id'];
-        this.isEditing = true;
-        this.loadTeamForEditing(params['id']);
-      }
-    })
-  }
-
-  loadTeamForEditing(teamId: string){
-    const team = this.teamService.getTeams().find(team => team.id === teamId);
-    if(team){
-      this.newTeam = {...team, members: team.members || []};
+  loadTeamForEditing(){
+    const userTeam = this.teamService.getTeams().find(team => team.id === this.teamId);
+    if(!userTeam){
+      this.router.navigate(['/teams']);
+      return;
     }
+    this.newTeam = {...userTeam, members: userTeam.members || []};
   }
 
   selectedMembers: string[] = [];
-
-  // get teams() {
-  //   return this.teamService.getTeams();
-  // }
 
   get availableMembers() {
     return this.teamService.getMembers();

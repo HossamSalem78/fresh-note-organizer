@@ -16,7 +16,7 @@ export class TeamsComponent {
   private router = inject(Router);
   
   get teams() {
-    return this.teamService.getTeams();
+    return this.teamService.getUserTeams();
   }
 
   // editTeam(team: TeamsInterface){

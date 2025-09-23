@@ -23,7 +23,7 @@ export class FoldersComponent {
   showFolderForm = false;
 
   get folders() {
-    return this.noteService.getFolders();
+    return this.noteService.getUserFolders();
   }
 
   onFolderClick(folderId:string){
@@ -37,8 +37,7 @@ export class FoldersComponent {
 
   onFolderCreate(folderName:string){
     this.noteService.addFolder({
-      name:folderName,
-      userId:'user1'
+      name:folderName
     });
     this.showFolderForm = false;
   }
