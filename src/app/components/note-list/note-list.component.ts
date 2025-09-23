@@ -28,7 +28,7 @@ export class NoteListComponent {
   selectedTags: string[] = [];
 
   get notes() {
-    const allNotes = this.noteService.getNotes();
+    const allNotes = this.noteService.getUserNotes();
 
     let filteredNotes = allNotes;
     if (this.selectedCategory){
@@ -136,7 +136,8 @@ export class NoteListComponent {
     this.router.navigate(['/notes/note-form', note.id]);
   }
 
-  deleteNote(noteId: string){
+  deleteNote(noteId: string, event: Event){
+    event.stopPropagation();
     if(confirm('Are you sure you want to delete this note?')){
       this.noteService.deleteNote(noteId);
     }

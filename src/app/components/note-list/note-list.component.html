@@ -83,7 +83,7 @@
               </span>
               <div class="note-actions">
                 <i class="fa-solid fa-edit btn btn-icon-primary" routerLink="/notes/note-form/{{note.id}}"></i>
-                <i class="fa-solid fa-trash btn btn-icon-danger" (click)="deleteNote(note.id)"></i>
+                <i class="fa-solid fa-trash btn btn-icon-danger" (click)="deleteNote(note.id, $event)"></i>
               </div>
             </div>
             <div class="note-title-container">

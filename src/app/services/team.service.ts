@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { TeamsInterface } from '../models/teams.interface';
+import { HttpClient } from '@angular/common/http';
 
+import { TeamsInterface } from '../models/teams.interface';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,11 @@ import { TeamsInterface } from '../models/teams.interface';
 
 export class TeamService {
 
-  private teams = signal<any[]>([]);
+  private teams = signal<TeamsInterface[]>([]);
+
+  public readonly teamsList=this.teams.asReadonly();
+  private authService = inject(AuthService);
+
   private members = signal<any[]>([]);
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3001/api';
@@ -38,8 +43,21 @@ export class TeamService {
     return this.members();
   }
 
+  getUserTeams(){
+    const currentUserId=this.authService.getCurrentUserId();
+    if(!currentUserId){
+      return [];
+    }
+    return this.teams().filter(team => team.userId === currentUserId);
+  }
+
   addTeam(team:Omit<TeamsInterface,'id'>){
-    this.http.post<any>(`${this.apiUrl}/teams`, team).subscribe({
+    const currentUserId=this.authService.getCurrentUserId();
+    if(!currentUserId){
+      return;
+    }
+    const userTeam={...team,userId:currentUserId}
+    this.http.post<any>(`${this.apiUrl}/teams`, userTeam).subscribe({
       next:(response) => {
         this.teams.update(teams => [...teams, response.team]);
       },
@@ -50,6 +68,14 @@ export class TeamService {
   }
 
   updateTeam(teamId:string,updateTeam:Partial<TeamsInterface>){
+    const currentUserId=this.authService.getCurrentUserId();
+    if(!currentUserId){
+      return;
+    }
+    const team=this.teams().find(team => team.id === teamId);
+    if(team && team.userId !== currentUserId){
+      return;
+    }
     this.http.put<any>(`${this.apiUrl}/teams/${teamId}`, updateTeam).subscribe({
       next:(response) => {
         this.teams.update(teams => teams.map(team => team.id === teamId ? {...team,...response.team} : team));
@@ -61,6 +87,14 @@ export class TeamService {
   }
 
   deleteTeam(teamId: string){
+    const currentUserId=this.authService.getCurrentUserId();
+    if(!currentUserId){
+      return;
+    }
+    const team=this.teams().find(team => team.id === teamId);
+    if(team && team.userId !== currentUserId){
+      return;
+    }
     this.http.delete<any>(`${this.apiUrl}/teams/${teamId}`).subscribe({
       next:(response) => {
         console.log('Team deleted via API:', response);
@@ -71,5 +105,4 @@ export class TeamService {
       }
     })
   }
-  
 }

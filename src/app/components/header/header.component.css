@@ -20,6 +20,11 @@
   
   .header-logo {
     display: flex;
+    gap: 48px;
+  }
+
+  .header-logo-content{
+    display: flex;
     flex-direction: column;
     gap: 4px;
   }
@@ -50,7 +55,7 @@
 
   .header-nav {
     display: flex;
-    gap: 1.5rem;
+    gap: 16px;
     align-items: center;
   }
   
@@ -71,6 +76,43 @@
   
   .nav-item.active {
     background: rgba(255, 255, 255, 0.2);
+  }
+
+  .logged-user{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    
+  }
+
+  .logged-user span{
+    color: white;
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .logged-user span span{
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .logged-user button{
+    color: white;
+    background-color: transparent;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease-in-out;
+  }
+
+  .logged-user button:hover{
+    background:#fff;
+    color: #6d67ca;
   }
   
   

@@ -41,16 +41,18 @@ export class NoteFormComponent {
       if(params['id']){
         this.noteId = params['id'];
         this.isEditing = true;
-        this.loadNoteForEditing(params['id']);
+        this.loadNoteForEditing();
       }
     })
   }
 
-  loadNoteForEditing(noteId: string){
-    const note = this.noteService.getNotes().find(note => note.id === noteId);
-    if(note){
-      this.newNote = {...note, tags: note.tags || []};
+  loadNoteForEditing(){
+    const userNote = this.noteService.getUserNotes().find(note => note.id === this.noteId);
+    if(!userNote){
+      this.router.navigate(['/notes']);
+      return;
     }
+    this.newNote = {...userNote, tags: userNote.tags || []};
   }
 
   selectedTags: string[] = [];
@@ -70,8 +72,6 @@ export class NoteFormComponent {
   get availableTags() {
     return this.noteService.getTags();
   }
-  
-  
 
   onTagToggle(tagId:string, event:any){
     if(!this.newNote.tags){
