@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { NoteService } from '../../../services/note.service';
 import { NoteInterface } from '../../../models/note.interface';
+import { AuthService } from '../../../services/auth.service';
+import { TeamService } from '../../../services/team.service';
 
 @Component({
   selector: 'app-note-form',
@@ -16,6 +18,8 @@ import { NoteInterface } from '../../../models/note.interface';
 
 export class NoteFormComponent {
   private noteService = inject(NoteService);
+  private teamService = inject(TeamService);
+  private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -30,21 +34,43 @@ export class NoteFormComponent {
     categoryId: '',
     teamId: '',
     folderId: '',
-    userId: 'user1'
+    userId: ''
   };
 
   isEditing = false;
   noteId: string | null = null;
 
   ngOnInit(){
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.newNote.userId = this.authService.getCurrentUserId() || '';
     this.route.params.subscribe(params => {
       if(params['id']){
         this.noteId = params['id'];
         this.isEditing = true;
         this.loadNoteForEditing();
       }
-    })
+    });
+    this.refreshData();
   }
+
+  private refreshData(): void {
+    this.noteService.refreshData();
+    this.teamService.refreshData();
+  }
+
+  // ngOnInit(){
+  //   this.route.params.subscribe(params => {
+  //     if(params['id']){
+  //       this.noteId = params['id'];
+  //       this.isEditing = true;
+  //       this.loadNoteForEditing();
+  //     }
+  //   })
+  // }
 
   loadNoteForEditing(){
     const userNote = this.noteService.getUserNotes().find(note => note.id === this.noteId);
@@ -62,11 +88,13 @@ export class NoteFormComponent {
   }
 
   get teams() {
-    return this.noteService.getTeams();
+    // return this.teamService.getUserTeams();
+    const teams=this.teamService.getUserTeams();
+    return teams;
   }
 
   get folders() {
-    return this.noteService.getFolders();
+    return this.noteService.getUserFolders();
   }
 
   get availableTags() {

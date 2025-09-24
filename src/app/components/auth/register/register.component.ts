@@ -45,10 +45,13 @@ export class RegisterComponent {
     this.authService.register(this.email, this.password, this.name, (success) => {
       if(success){
         this.showMessage('Registration successful!','success');
+        this.refreshUserData();
         this.email = '';
         this.password = '';
         this.name = '';
-        this.router.navigate(['/notes']);
+        setTimeout(() => {
+          this.router.navigate(['/notes']);
+        },100);
       }else{
         this.showMessage('Registration failed!','error');
         this.fieldErrors.name=true;
@@ -57,6 +60,11 @@ export class RegisterComponent {
       }
     });
 
+  }
+
+  private refreshUserData(){
+    this.noteService.refreshData();
+    this.teamService.refreshData();
   }
 
   private clearMessages(){

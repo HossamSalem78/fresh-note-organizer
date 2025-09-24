@@ -175,101 +175,7 @@
       "name": "Finance"
     }
   ],
-  "teams": [
-    {
-      "id": "team1",
-      "name": "Development Team",
-      "members": [
-        "member1",
-        "member2"
-      ],
-      "userId": "user1"
-    },
-    {
-      "id": "team2",
-      "name": "Marketing Team",
-      "members": [
-        "member3",
-        "member4",
-        "member5"
-      ],
-      "userId": "user1"
-    },
-    {
-      "id": "team3",
-      "name": "Sales Team",
-      "members": [
-        "member5",
-        "member6",
-        "member7",
-        "member8"
-      ],
-      "userId": "user1"
-    },
-    {
-      "name": "test team",
-      "members": [
-        "member7",
-        "member4",
-        "member3",
-        "member1"
-      ],
-      "userId": "user1",
-      "id": "1757948548146"
-    },
-    {
-      "name": "Hossam Team",
-      "members": [
-        "member1",
-        "member2",
-        "member3"
-      ],
-      "userId": "user1",
-      "id": "1758022828626"
-    },
-    {
-      "name": "Ahmed Team",
-      "members": [
-        "member3",
-        "member5",
-        "member4"
-      ],
-      "userId": "user1",
-      "id": "1758027493362"
-    },
-    {
-      "name": "ff",
-      "members": [
-        "member3"
-      ],
-      "userId": "user1",
-      "id": "1758132774729"
-    },
-    {
-      "name": "admin teams",
-      "members": [
-        "member3"
-      ],
-      "userId": "1758466031950",
-      "id": "1758466059829"
-    },
-    {
-      "name": "hossam teams",
-      "members": [
-        "member3"
-      ],
-      "userId": "1758468963457",
-      "id": "1758468985353"
-    },
-    {
-      "name": "john team",
-      "members": [
-        "member7"
-      ],
-      "userId": "1758469031691",
-      "id": "1758591895907"
-    }
-  ],
+  "teams": [],
   "members": [
     {
       "id": "member1",
@@ -335,18 +241,24 @@
       "name": "hossam folder",
       "userId": "1758468963457",
       "id": "1758468997246"
+    },
+    {
+      "id": "8",
+      "name": "my folder",
+      "userId": "1",
+      "createdAt": "2025-09-23T18:53:41.779Z"
     }
   ],
   "users": [
     {
-      "id": "1758468963457",
+      "id": "1",
       "username": "Hossam Salem",
       "email": "hossam.salem@integrant.com",
       "password": "123456"
     },
     {
-      "id": "1758469031691",
-      "username": "john doe",
+      "id": "2",
+      "username": "John",
       "email": "john@example.com",
       "password": "123456"
     }

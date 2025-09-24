@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { TeamService } from '../../../services/team.service';
 import { TeamsInterface } from '../../../models/teams.interface';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-teams-form',
@@ -16,10 +17,15 @@ import { TeamsInterface } from '../../../models/teams.interface';
 
 export class TeamsFormComponent {
   private teamService = inject(TeamService);
+  private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
   ngOnInit(){
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/login']);
+      return;
+    }
     this.route.params.subscribe(params => {
       if(params['id']){
         this.teamId = params['id'];
@@ -33,17 +39,16 @@ export class TeamsFormComponent {
     this.router.navigate(['/teams']);
   }
 
-  newTeam:Omit<TeamsInterface,'id'> = {
+  newTeam:Omit<TeamsInterface,'id' | 'userId'> = {
     name: '',
-    members: [],
-    userId: 'user1'
+    members: []
   };
 
   isEditing = false;
   teamId: string | null = null;
 
   loadTeamForEditing(){
-    const userTeam = this.teamService.getTeams().find(team => team.id === this.teamId);
+    const userTeam = this.teamService.getUserTeams().find(team => team.id === this.teamId);
     if(!userTeam){
       this.router.navigate(['/teams']);
       return;
@@ -74,7 +79,7 @@ export class TeamsFormComponent {
     if (this.isEditing && this.teamId) {
       this.teamService.updateTeam(this.teamId, this.newTeam);
     } else {
-      this.teamService.addTeam(this.newTeam as Omit<TeamsInterface, 'id'>);
+      this.teamService.addTeam(this.newTeam as Omit<TeamsInterface, 'id' | 'userId'>);
     }
     
     this.resetForm();
@@ -84,8 +89,7 @@ export class TeamsFormComponent {
   private resetForm() {
     this.newTeam = {
       name: '',
-      members: [],
-      userId: 'user1'
+      members: []
     };
     this.isEditing = false;
     this.teamId = null;

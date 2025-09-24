@@ -45,15 +45,23 @@ export class LoginComponent {
     this.authService.login(this.email, this.password, (success) => {
       if (success) {
         this.showMessage('Login successful!','success');
+        this.refreshUserData();
         this.email = '';
         this.password = '';
-        this.router.navigate(['/notes']);
+        setTimeout(() => {
+          this.router.navigate(['/notes']);
+        },100);
       } else {
         this.showMessage('Login failed!','error');
         this.fieldErrors.password=true;
         this.fieldErrors.email=true;
       }
     });
+  }
+
+  private refreshUserData(){
+    this.noteService.refreshData();
+    this.teamService.refreshData();
   }
 
   private clearMessages(){

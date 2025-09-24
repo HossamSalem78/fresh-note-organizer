@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
-import { TeamsInterface } from '../../models/teams.interface';
+// import { TeamsInterface } from '../../models/teams.interface';
 import { TeamService } from '../../services/team.service';
 
 @Component({
@@ -14,6 +14,9 @@ import { TeamService } from '../../services/team.service';
 export class TeamsComponent {
   private teamService = inject(TeamService);
   private router = inject(Router);
+
+  debugLogs: string[] = [];
+  showDebug = false;
   
   get teams() {
     return this.teamService.getUserTeams();
