@@ -105,7 +105,7 @@ export class NoteService {
         this.tags.set(data.tags || []);
       },
       error:(error) => {
-        // console.error('Error loading static data:', error);
+        console.error('Error loading static data:', error);
       }
     });
   }
